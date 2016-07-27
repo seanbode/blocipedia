@@ -15,10 +15,11 @@ group :development do
   gem 'spring'
 end
 
+gem 'figaro', '1.0'
+gem 'stripe'
 gem 'pundit'
 gem 'faker'
 gem 'bootstrap-sass'
-gem 'sass-rails', '~> 5.0'
 gem 'devise'
 gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'

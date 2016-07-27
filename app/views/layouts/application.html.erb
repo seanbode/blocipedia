@@ -13,6 +13,17 @@
     <%= link_to "sign up", new_user_registration_path %>
     <%= link_to "sign in", new_user_session_path %>
   <% end %>
+<div>
+  <% flash.each do |k,v| %>
+     <div class="alert alert-<%= k == 'notice' ? 'info' : 'danger' %> fade in">
+       <button class="close" data-dismiss="alert">
+         <i class="fa fa-fw fa-info"></i>
+         <strong><Info><%= k %>!</strong> <%= raw(v) %>
+       </button>
+     </div>
+   <% end %>
+</div>
+
 
 <%= yield %>
 
