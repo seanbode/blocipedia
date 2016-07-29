@@ -5,7 +5,11 @@ class WikisController < ApplicationController
   end
 
   def index
-    @wikis = Wiki.all
+    if current_user.premium? || current_user.admin?
+      @wikis = Wiki.all
+    else
+      @wikis = Wiki.where(private: false)
+    end
   end
 
   def new
@@ -58,6 +62,6 @@ class WikisController < ApplicationController
   private
 
   def wiki_params
-  params.require(:wiki).permit(:title, :body)
+    params.require(:wiki).permit(:title, :body, :private)
   end
 end

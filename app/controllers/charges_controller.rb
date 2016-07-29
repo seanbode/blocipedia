@@ -34,9 +34,7 @@ class ChargesController < ApplicationController
   def destroy
     current_user.standard!
 
-    current_user.wikis.each do |wiki|
-      wiki.update(private: false)
-    end
+    current_user.wikis.update_all(private: false) 
     redirect_to user_path(current_user)
   end
 end
