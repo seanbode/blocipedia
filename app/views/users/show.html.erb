@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-md-10">
+    <h1><%= current_user.email %></h1>
+    <% if current_user.standard? %>
+      <%= link_to "upgrade account", new_charge_path %>
+    <% elsif current_user.premium? || current_user.admin? %>
+      <%= link_to "downgrade account", charge_path, method: :delete %>
+    <% end %>
+  </div>
+</div>
