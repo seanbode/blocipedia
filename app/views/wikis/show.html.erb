@@ -1,7 +1,7 @@
 <div class="container">
   <div>
     <h1>
-      <%= markdown(@wiki.title) %> <br>
+      <%= markdown_to_html(@wiki.title) %> <br>
       <small>
         submitted <%= time_ago_in_words(@wiki.created_at) %> ago by <%= @wiki.user.email %>
       </small>
@@ -10,7 +10,7 @@
   <br />
   <div class="row">
     <div class="col-md-8">
-      <p><%= markdown(@wiki.body) %></p>
+      <p><%= markdown_to_html(@wiki.body) %></p>
     </div>
     <div class="col-md-2">
       <%= link_to "All Entries", root_path, class: 'btn btn-success' %>
