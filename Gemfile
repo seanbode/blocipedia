@@ -15,6 +15,7 @@ group :development do
   gem 'spring'
 end
 
+gem 'redcarpet'
 gem 'figaro', '1.0'
 gem 'stripe'
 gem 'pundit'
