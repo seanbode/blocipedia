@@ -31,6 +31,11 @@ class WikisController < ApplicationController
   def edit
     @wiki = Wiki.find(params[:id])
     authorize @wiki
+#    if current_user != @wiki.user
+#      @wiki.collaborator = current_user
+#    else
+#      !current_user.collaborator?
+#    end
   end
 
   def update

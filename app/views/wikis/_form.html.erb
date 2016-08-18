@@ -13,6 +13,14 @@
         <%= f.check_box :private %> Private Wiki
       <% end %>
     </div>
+    <div class="form-group">
+      <% for user in User.find(:all) %>
+        <div>
+          <%= check_box_tag "user[user_ids][]", user.id, @user.include?(user) %>
+          <%= user.name %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
   <%= f.submit "Save", class: 'btn btn-success' %>
 <% end %>
