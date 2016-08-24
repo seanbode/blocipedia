@@ -31,6 +31,7 @@ class WikisController < ApplicationController
   def edit
     @wiki = Wiki.find(params[:id])
     authorize @wiki
+    @users = User.where.not(id: current_user.id)
 #    if current_user != @wiki.user
 #      @wiki.collaborator = current_user
 #    else
@@ -39,6 +40,7 @@ class WikisController < ApplicationController
   end
 
   def update
+    # binding.pry
     @wiki = Wiki.find(params[:id])
     authorize @wiki
     @wiki.assign_attributes(wiki_params)
@@ -67,6 +69,6 @@ class WikisController < ApplicationController
   private
 
   def wiki_params
-    params.require(:wiki).permit(:title, :body, :private)
+    params.require(:wiki).permit(:title, :body, :private, user_ids: [])
   end
 end

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_many :wikis
   has_many :collaborations
-  has_many :wiki_collaboration, through: :collaborations, source: :wikis
+  has_many :wiki_collaborations, through: :collaborations, source: :wikis
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
