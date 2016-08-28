@@ -5,11 +5,12 @@ class WikisController < ApplicationController
   end
 
   def index
-    if current_user.premium? || current_user.admin?
-      @wikis = Wiki.all
-    else
-      @wikis = Wiki.where(private: false)
-    end
+    #if current_user.premium? || current_user.admin?
+    #  @wikis = Wiki.all
+    #else
+    #  @wikis = Wiki.where(private: false)
+    #end
+    @wikis = policy_scope(Wiki)
   end
 
   def new
@@ -32,15 +33,9 @@ class WikisController < ApplicationController
     @wiki = Wiki.find(params[:id])
     authorize @wiki
     @users = User.where.not(id: current_user.id)
-#    if current_user != @wiki.user
-#      @wiki.collaborator = current_user
-#    else
-#      !current_user.collaborator?
-#    end
   end
 
   def update
-    # binding.pry
     @wiki = Wiki.find(params[:id])
     authorize @wiki
     @wiki.assign_attributes(wiki_params)
