@@ -14,6 +14,7 @@ class WikisController < ApplicationController
 
   def new
     @wiki = Wiki.new
+    @users = User.where.not(id: current_user.id)
   end
 
   def create
