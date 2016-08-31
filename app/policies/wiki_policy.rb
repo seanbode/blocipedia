@@ -6,15 +6,15 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.present? && (record.user == user || user.admin?)
+    edit?
   end
 
   def edit?
-    user.present? && (record.user == user || user.admin?)
+    user.present? && (record.user == user || user.admin? || record.users.include?(user))
   end
 
   def update?
-    user.present? && (record.user == user || user.admin?)
+    edit?
   end
 
   class Scope
@@ -27,12 +27,12 @@ class WikiPolicy < ApplicationPolicy
 
     def resolve
       wikis = []
-      if current_user.role == 'admin'
+      if user.role == 'admin'
         wikis = scope.all
-      elsif current_user.role == 'premium'
+      elsif user.role == 'premium'
         all_wikis = scope.all
         all_wikis.each do |wiki|
-          if wiki.public? || wiki.owner == current_user || wiki.collaborators.include?(current_user)
+          if !wiki.private? || wiki.user == user || wiki.users.include?(user)
             wikis << wiki
           end
         end
@@ -40,7 +40,7 @@ class WikiPolicy < ApplicationPolicy
         all_wikis = scope.all
         wikis = []
         all_wikis.each do |wiki|
-          if wiki.public? || wiki.collaborators.include?(current_user)
+          if !wiki.private? || wiki.users.include?(user)
             wikis << wiki
           end
         end
