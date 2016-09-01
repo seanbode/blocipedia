@@ -11,15 +11,21 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
 
 $(document).ready(function () {
-  var converter = new showdown.Converter();
-  $('#wiki_body').on('keyup', function (event) {
-    var mdown = $('#wiki_body').val();
+
+  function markdownToHtml (source, target) {
+    var converter = new showdown.Converter();
+    var mdown = $(source).val();
     var html = converter.makeHtml(mdown);
-    $('#wiki-preview').html(html);
+    $(target).html(html);
+  }
+
+  $('#wiki_body').on('keyup', function (event) {
+    markdownToHtml($('#wiki-preview', '#wiki-preview'));
   });
 });
